@@ -16,3 +16,8 @@ then, edit your eggdrop.conf file:
 end restart eggdrop bot
 
 Tested with Eggdrop v1.6.19 and Puppet v2.6.2
+
+CHANGELOG:
+
+v0.2:
+- added sendemail capability
