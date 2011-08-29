@@ -1,3 +1,4 @@
+############################################################################
 # Eggdrop Puppet notificator
 # -----------------------
 #   Date: 2011-08-29
@@ -17,6 +18,7 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+############################################################################
 
 #### PUT HERE YOUR CUSTOM CONFIGS ####
 set channel "#devsum"
@@ -31,7 +33,7 @@ set scriptversion "0.2"
 
 proc dosendemail { line } {
     global emailaddress delayinminutes
-    exec echo "Huston, have we got a problem?!" | mail -s "[Eggdrop] Puppet node $line last seen > $delayinminutes min ago" $emailaddress
+    exec echo "Huston, have we got a problem?!" | mail -s "\[Eggdrop\] Puppet node $line last seen > $delayinminutes min ago" $emailaddress
 }
 
 proc puppetcheck {} {
