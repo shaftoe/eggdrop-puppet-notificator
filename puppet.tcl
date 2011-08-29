@@ -58,4 +58,4 @@ proc puppetcheck {} {
 }
 
 timer $pollingfrequency puppetcheck
-putlog "puppet-check v$scriptversion loaded"
+putlog "puppet-check v$scriptversion https://github.com/shaftoe/eggdrop-puppet-notificator - Loaded."
