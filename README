@@ -1,0 +1,18 @@
+#####################################
+# Eggdrop Puppet notificator plugin #
+#####################################
+
+This is my first TCL script, so be careful using it ;) Basically it just uses some unix common tools (find, diff) to scan your Puppet reports directory, than sends a message through your Eggdrop bot to notify you if a Puppet node has been missing for more than $delayinminutes.
+
+Of course, you need to have both Puppet Master and Eggdrop running on the same machine ;)
+
+To use this, edit puppet.tlc according to your local system config, than copy it into your plugin directory:
+
+# cp puppet.tcl /usr/share/eggdrop/scripts
+
+then, edit your eggdrop.conf file:
+# cat "source /usr/share/eggdrop/scripts/puppet.tcl" >> /path/to/your/eggdrop.conf
+
+end restart eggdrop bot
+
+Tested with Eggdrop v1.6.19 and Puppet v2.6.2
