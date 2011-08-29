@@ -31,13 +31,18 @@ set emailaddress "root"
 
 set scriptversion "0.2"
 
+if {![info exists myproc_running]} {
+    timer $pollingfrequency puppetcheck
+    set myproc_running 1
+}
+
 proc dosendemail { line } {
     global emailaddress delayinminutes
     exec echo "Huston, have we got a problem?!" | mail -s "\[Eggdrop\] Puppet node $line last seen > $delayinminutes min ago" $emailaddress
 }
 
 proc puppetcheck {} {
-    global channel delayinminutes puppetreports sendemail
+    global channel delayinminutes puppetreports sendemail pollingfrequency
     set tempfilefind "/tmp/eggdropfind"
     set tempfilels "/tmp/eggdropls"
     set tempfilediff "/tmp/eggdropdiff"
@@ -65,7 +70,9 @@ proc puppetcheck {} {
     exec rm $tempfilefind
     exec rm $tempfilels
     exec rm $tempfilediff
+
+    timer $pollingfrequency puppetcheck
+    return 1
 }
 
-timer $pollingfrequency puppetcheck
 putlog "puppet.tcl v$scriptversion https://github.com/shaftoe/eggdrop-puppet-notificator - Loaded."
