@@ -57,7 +57,7 @@ proc puppetcheck {} {
     set lineNumber 0
     while {[gets $tempfile line] >= 0} {
         puthelp "PRIVMSG $channel :\[\002PuppetDashboard\002\] $line node last seen > $delayinminutes min ago"
-        putloglev p $channel "PuppetDashboard - $line node last seen > $delayinminutes min ago"
+        putloglev p $channel "<PuppetDashboard> $line node last seen > $delayinminutes min ago"
         if {$sendemail != "false"} { dosendemail $line }
     }
     close $tempfile
