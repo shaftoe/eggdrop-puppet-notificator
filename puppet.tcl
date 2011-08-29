@@ -21,14 +21,21 @@
 #### PUT HERE YOUR CUSTOM CONFIGS ####
 set channel "#devsum"
 set delayinminutes "60"
-set pollingfrequency "2"
+set pollingfrequency "5"
 set puppetreports "/var/lib/puppet/reports"
+set sendemail "false"
+set emailaddress "root"
 ######### STOP EDITING HERE ##########
 
-set scriptversion "0.1"
+set scriptversion "0.2"
+
+proc dosendemail { line } {
+    global emailaddress delayinminutes
+    exec echo "Huston, have we got a problem?!" | mail -s "[Eggdrop] Puppet node $line last seen > $delayinminutes min ago" $emailaddress
+}
 
 proc puppetcheck {} {
-    global channel delayinminutes puppetreports
+    global channel delayinminutes puppetreports sendemail
     set tempfilefind "/tmp/eggdropfind"
     set tempfilels "/tmp/eggdropls"
     set tempfilediff "/tmp/eggdropdiff"
@@ -49,6 +56,7 @@ proc puppetcheck {} {
     while {[gets $tempfile line] >= 0} {
         puthelp "PRIVMSG $channel :\[\002PuppetDashboard\002\] $line node last seen > $delayinminutes min ago"
         putloglev p $channel "PuppetDashboard - $line node last seen > $delayinminutes min ago"
+        if {$sendemail != "false"} { dosendemail $line }
     }
     close $tempfile
 
