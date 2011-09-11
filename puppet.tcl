@@ -54,7 +54,7 @@ proc puppetcheck {} {
     exec ls -1 $puppetreports >@ $tempfile
     close $tempfile
     set tempfile [ open $tempfilediff w ]
-    exec diff -n $tempfilefind $tempfilels | egrep ".+\..+\..+" >@ $tempfile &
+    exec diff -c $tempfilefind $tempfilels | grep ^\+ | cut -c "3-" >@ $tempfile &
     close $tempfile
     after 500
 
